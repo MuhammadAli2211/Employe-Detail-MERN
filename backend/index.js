@@ -30,6 +30,10 @@ const employeeSchema = new mongoose.Schema({
 
 const Employee = mongoose.model("Employee", employeeSchema);
 
+app.get("/", (req, res) => {
+  res.json({ message: "Employee API is running successfully!" });
+});
+
 app.get("/employees", async (req, res) => {
   const data = await Employee.find();
   res.json(data);
