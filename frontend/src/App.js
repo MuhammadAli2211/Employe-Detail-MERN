@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API = "http://localhost:4000/employees";
+const API = "https://aap-ka-backend-project.vercel.app/employees";
 
 function App() {
   const [employees, setEmployees] = useState([]);
