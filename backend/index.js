@@ -1,19 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config(); 
+
 
 const app = express();
 
-app.use(cors());
+
+app.use(cors()); 
 app.use(express.json());
 
 
-mongoose.connect(
-        "mongodb://moon:moon2211@ac-l2ejgmi-shard-00-00.koufj2e.mongodb.net:27017,ac-l2ejgmi-shard-00-01.koufj2e.mongodb.net:27017,ac-l2ejgmi-shard-00-02.koufj2e.mongodb.net:27017/?ssl=true&replicaSet=atlas-fic7lp-shard-0&authSource=admin&appName=Cluster0"
-)
+const MONGO_URI = process.env.MONGO_URI || "mongodb://moon:moon2211@ac-l2ejgmi-shard-00-00.koufj2e.mongodb.net:27017,ac-l2ejgmi-shard-00-01.koufj2e.mongodb.net:27017,ac-l2ejgmi-shard-00-02.koufj2e.mongodb.net:27017/?ssl=true&replicaSet=atlas-fic7lp-shard-0&authSource=admin&appName=Cluster0";
+
+mongoose.connect(MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
-
 
 const employeeSchema = new mongoose.Schema({
   name: String,
@@ -24,12 +26,10 @@ const employeeSchema = new mongoose.Schema({
 
 const Employee = mongoose.model("Employee", employeeSchema);
 
-
 app.get("/employees", async (req, res) => {
   const data = await Employee.find();
   res.json(data);
 });
-
 
 app.post("/employees", async (req, res) => {
   try {
@@ -41,20 +41,21 @@ app.post("/employees", async (req, res) => {
   }
 });
 
-
 app.put("/employees/:id", async (req, res) => {
+  
   const updated = await Employee.findByIdAndUpdate(
     req.params.id,
     req.body,
-    { new: true }
+    { returnDocument: 'after' } 
   );
   res.json(updated);
 });
-
 
 app.delete("/employees/:id", async (req, res) => {
   await Employee.findByIdAndDelete(req.params.id);
   res.json({ message: "Deleted" });
 });
 
-app.listen(4000, () => console.log("Server running on port 4000"));
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
