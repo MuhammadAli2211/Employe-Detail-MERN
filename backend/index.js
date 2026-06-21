@@ -8,7 +8,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: "https://employe-detail-mern-raqj.vercel.app", 
+  origin: "*", 
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
