@@ -5,22 +5,12 @@ require("dotenv").config();
 
 
 const app = express();
-
-
 app.use(cors({
-    origin: 'https://employe-detail-mern-raqj-git-main-muhammad-ali2211.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-    credentials: true
-}));
+  origin: ["https://employe-detail-mern-raqj.vercel.app", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));  
 
-
-app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://employe-detail-mern-raqj-git-main-muhammad-ali2211.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
-    res.sendStatus(200);
-});
 app.use(express.json());
 
 
