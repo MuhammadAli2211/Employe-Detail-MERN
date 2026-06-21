@@ -6,12 +6,12 @@ require("dotenv").config();
 
 const app = express();
 
-
 app.use(cors({
-  origin: "*", 
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.use(express.json());
 
 
@@ -63,3 +63,4 @@ app.delete("/employees/:id", async (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+module.exports = app;
