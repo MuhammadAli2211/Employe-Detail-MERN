@@ -6,11 +6,13 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+const corsOptions = {
+  origin: 'https://employe-detail-mern-raqj-git-main-muhammad-ali2211.vercel.app', 
+  optionsSuccessStatus: 200 // For legacy browser support
+};
+
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
